@@ -1,0 +1,20 @@
+{
+  "name": "trunk-api",
+  "version": "0.0.1",
+  "description": "The api for all the Trunk services",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trunk-app-inc/trunk-api.git"
+  },
+  "author": "Bobby Boyd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trunk-app-inc/trunk-api/issues"
+  },
+  "homepage": "https://github.com/trunk-app-inc/trunk-api#readme"
+}
