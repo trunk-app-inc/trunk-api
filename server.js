@@ -6,6 +6,7 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const config = require('./config/main')
 const expressValidator = require('express-validator');
+const cors = require('cors')
 //mongo
 mongoose.connect(config.database)
 
@@ -15,6 +16,21 @@ app.use(express.json());
 app.use(expressValidator());
 app.use(passport.initialize())
 app.use(passport.session())
+
+// Set up a whitelist and check against it:
+// var whitelist = ['http://localhost', 'http://localhost:3000']
+var corsOptions = {
+  origin: function (origin, callback) {
+    // if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    // } else {
+      // callback(new Error('Not allowed by CORS'))
+    // }
+  }
+}
+
+// Then pass them to cors:
+app.use(cors(corsOptions));
 
 //passport strategy 
 require('./config/passportjwt')(passport);
