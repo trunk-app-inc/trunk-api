@@ -4,19 +4,29 @@ const saltRounds = 10;
 const bcrypt = require('bcrypt');
 const db = require('../models');
 const config = require('../config/main')
+const axios = require('axios')
 module.exports = {
 	authenticate: (req, res) => {
+    console.log(req.body.email)
+    console.log(req)
 		db.users.findOne({
 			email: req.body.email
-		}).then((err, user) => {
-			if(err) throw err;
-			if(user){
-				const passwordCheck = bcyrpt.compareSync(password, user.password);
+		}).then((data) => {
+
+      let user = {
+        email: req.body.email,
+        password: req.body.password
+      }
+
+			if(data){
+				const passwordCheck = bcrypt.compareSync(req.body.password, data.password);
+        console.log(`password check: ${passwordCheck}`)
 				if(passwordCheck) { 
 					let token = jwt.sign(user, config.secret, {
 						expiresIn: 99999 //in seconds
-					});
-					res.json({success: 'true', token: `JWT ${token}`})
+          });
+          //send token
+          res.json({success: 'true', token: `${token}`})
 				} else {
 					res.send({success: false , message: 'Authenication failed'})
 				}
@@ -51,16 +61,25 @@ module.exports = {
 
       })
         .then((created) => {
-          console.log('created a user');
-					res.send(true);
-       ;
+
+          let user = {
+            email: created.email,
+            password: created.password
+          }
+          console.log(user)
+          //get a token for the new user
+          let token = jwt.sign(user, config.secret, {
+						expiresIn: 99999 //in seconds
+          });
+          //send token
+          res.send({success: 'true', token: `${token}`})
         })
         .catch((err) => {
           // create user errors
           // either duplicate username or email
           if (err) {
-            console.log(err.errmsg);
-            const data = [err.errmsg];
+            console.log(err);
+            const data = [err.Error];
             res.send(err);
           }
         });
