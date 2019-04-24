@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const config = require('./config/main')
 const expressValidator = require('express-validator');
 const cors = require('cors')
+const path = require('path')
 //mongo
 mongoose.connect(config.database)
 
@@ -38,6 +39,9 @@ require('./config/passportjwt')(passport);
 app.use('/api', require('./routes/api'))
 app.use('/api', require('./routes/user'))
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './views/index.html'));
+});
 //start server
 app.listen(PORT, () => {
 	console.log('Server running...')
