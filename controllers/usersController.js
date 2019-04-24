@@ -32,7 +32,15 @@ module.exports = {
 				}
 			}
 		})
-	},
+  },
+  
+  verifyLogin: (req, res) => {
+    jwt.verify(req.body.token, config.secret ,(err, auth) => {
+      console.log(auth)
+      res.send(auth)
+    })
+
+  },
 
 	createUser: (req, res) => {
     req.checkBody('username', 'Username cannot be empty.').notEmpty();

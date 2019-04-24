@@ -10,6 +10,9 @@ router
 	.route('/authenticate')
 	.post(uController.authenticate)
 
+router
+	.route('/verifyLogin')
+	.post(uController.verifyLogin)
 	// req.login uses these functions
 passport.serializeUser((user_id, done) => {
   done(null, user_id);
