@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express();
 const mongoose = require('mongoose');
-const PORT= process.env.PORT || 3000;
+const PORT= process.env.PORT || 3001;
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const config = require('./config/main')
@@ -40,7 +40,7 @@ app.use('/api', require('./routes/api'))
 app.use('/api', require('./routes/user'))
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './views/index.html'));
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 //start server
 app.listen(PORT, () => {
