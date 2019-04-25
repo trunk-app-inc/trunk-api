@@ -1,0 +1,23 @@
+version: "3"
+services:
+  api:
+    container_name: trunk-api-node
+    restart: always
+    build: ./api
+    volumes:
+      - ./api/:/api
+      - /usr/src/node_modules
+    ports:
+      - "3001:3001"
+  client:
+    container_name: trunk-api-client
+    restart: always
+    build: ./client
+    volumes:
+      - ./client/:/client
+      - /usr/src/node_modules
+    links:
+      - api
+    ports:
+      - "3000:3000"
+ 

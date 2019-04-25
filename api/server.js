@@ -40,7 +40,7 @@ app.use('/api', require('./routes/api'))
 app.use('/api', require('./routes/user'))
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './client/build/index.html'));
+  // res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 //start server
 app.listen(PORT, () => {
