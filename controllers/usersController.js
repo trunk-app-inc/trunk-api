@@ -80,7 +80,7 @@ module.exports = {
 						expiresIn: 99999 //in seconds
           });
           //send token
-          res.send({success: 'true', token: `${token}`})
+          res.json({success: 'true', token: `${token}`})
         })
         .catch((err) => {
           // create user errors

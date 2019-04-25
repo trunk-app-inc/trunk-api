@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const passport = require('passport')
 const uController = require('../controllers/usersController')
+
+// router.use(passport.authenticate('bearer', {session: false}));
 router
 	.route('/register')
 	.post(uController.createUser)
@@ -13,6 +15,8 @@ router
 router
 	.route('/verifyLogin')
 	.post(uController.verifyLogin)
+
+	
 	// req.login uses these functions
 passport.serializeUser((user_id, done) => {
   done(null, user_id);

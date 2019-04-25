@@ -1,7 +1,9 @@
 import React from 'react';
-
-const Nav = (props) => {
-	<div></div>
-}
+import './Nav.css'
+const Nav = (props) => (
+	<div className="side-nav">
+		Test	
+	</div>
+)
 
 export default Nav;

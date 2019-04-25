@@ -8,7 +8,6 @@ const config = require('./config/main')
 const expressValidator = require('express-validator');
 const cors = require('cors')
 const path = require('path')
-const axios = require('axios')
 //mongo
 mongoose.connect(config.database)
 
