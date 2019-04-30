@@ -14,6 +14,7 @@ const userSchema = new Schema({
   wishlist: { type: String },
   sell: { type: String },
   chats: { type: Array },
+  employee: {type: Boolean, required: true}
 });
 
 // Convert UTC to PST.

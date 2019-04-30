@@ -2,7 +2,7 @@ import React from 'react';
 import './Nav.css'
 const Nav = (props) => (
 	<div className="side-nav">
-		Test	
+		<button onClick={props.logout}>Logout</button>
 	</div>
 )
 

@@ -1,3 +1,0 @@
-# Trunk Documentation
-
-## Getting Started

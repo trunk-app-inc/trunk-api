@@ -35,13 +35,45 @@ module.exports = {
   },
   
   verifyLogin: (req, res) => {
-    jwt.verify(req.body.token, config.secret ,(err, auth) => {
-      console.log(auth)
-      res.send(auth)
-    })
+    console.log(req.body.token)
+    if(req.body.token !== null) {
 
+      jwt.verify(req.body.token, config.secret ,(err, auth) => {
+        if(err) throw err;
+        res.send("auth")
+      })
+    } else {
+      res.send('No Auth')
+    }
   },
+   
+  authenticateInternal: (req, res) => {
+    console.log(req)
+		db.users.findOne({
+      email: req.body.email,
+      employee: true
+		}).then((data) => {
 
+      let user = {
+        email: req.body.email,
+        password: req.body.password
+      }
+
+			if(data){
+				const passwordCheck = bcrypt.compareSync(req.body.password, data.password);
+        console.log(`password check: ${passwordCheck}`)
+				if(passwordCheck) { 
+					let token = jwt.sign(user, config.secret, {
+						expiresIn: 99999 //in seconds
+          });
+          //send token
+          res.json({success: 'true', token: `${token}`})
+				} else {
+					res.send({success: false , message: 'Authenication failed'})
+				}
+			}
+		})
+  },
 	createUser: (req, res) => {
     req.checkBody('username', 'Username cannot be empty.').notEmpty();
     req.checkBody('email', 'Email field must not be empty.').notEmpty();
