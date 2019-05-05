@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ReactMarkdown from 'react-markdown'
 import Nav from '../../Components/Nav/Nav'
 import usersApi from '../../api/user'
+import Wrapper from '../../Components/Wrapper/Wrapper';
 const axios = require('axios')
 class Home extends Component {
  state = {
@@ -23,11 +23,9 @@ class Home extends Component {
 		return (
 			<div className="home">
 				<Nav logout={this.props.logout}/>
-				<div className="wrapper">
-					<button onClick={this.createToken}>
-						Get Token
-					</button>
-				</div>
+				<Wrapper>
+					hello
+				</Wrapper>
 			</div>
 		)
 	}

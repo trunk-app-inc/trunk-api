@@ -39,7 +39,10 @@ module.exports = {
     if(req.body.token !== null) {
 
       jwt.verify(req.body.token, config.secret ,(err, auth) => {
-        if(err) throw err;
+        if(err) {
+          localStorage.removeItem('token')
+          throw err;
+        }
         res.send("auth")
       })
     } else {
