@@ -1,10 +1,9 @@
 import React from 'react';
 import './Nav.css'
+import PBtn from '../Button/PBtn'
 const Nav = (props) => (
 	<div className="side-nav">
-		<button onClick={props.logout}>
-			Logout
-		</button>
+		<PBtn id="logout" onClick={props.logout}>Logout</PBtn>
 	</div>
 )
 

@@ -1,6 +1,12 @@
 .side-nav {
 	background-color: #ececec;
-	width: 40vw;
+	width: 20vw;
 	position: fixed;
 	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.side-nav #logout{
+
 }

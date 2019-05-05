@@ -6,40 +6,40 @@ const db = require('../models');
 const config = require('../config/main')
 const axios = require('axios')
 module.exports = {
-	authenticate: (req, res) => {
+  authenticate: (req, res) => {
     console.log(req.body.email)
     console.log(req)
-		db.users.findOne({
-			email: req.body.email
-		}).then((data) => {
+    db.users.findOne({
+      email: req.body.email
+    }).then((data) => {
 
       let user = {
         email: req.body.email,
         password: req.body.password
       }
 
-			if(data){
-				const passwordCheck = bcrypt.compareSync(req.body.password, data.password);
+      if (data) {
+        const passwordCheck = bcrypt.compareSync(req.body.password, data.password);
         console.log(`password check: ${passwordCheck}`)
-				if(passwordCheck) { 
-					let token = jwt.sign(user, config.secret, {
-						expiresIn: 99999 //in seconds
+        if (passwordCheck) {
+          let token = jwt.sign(user, config.secret, {
+            expiresIn: 99999 //in seconds
           });
           //send token
-          res.json({success: 'true', token: `${token}`})
-				} else {
-					res.send({success: false , message: 'Authenication failed'})
-				}
-			}
-		})
+          res.json({ success: 'true', token: `${token}` })
+        } else {
+          res.send({ success: false, message: 'Authenication failed' })
+        }
+      }
+    })
   },
-  
+
   verifyLogin: (req, res) => {
     console.log(req.body.token)
-    if(req.body.token !== null) {
+    if (req.body.token !== null) {
 
-      jwt.verify(req.body.token, config.secret ,(err, auth) => {
-        if(err) {
+      jwt.verify(req.body.token, config.secret, (err, auth) => {
+        if (err) {
           localStorage.removeItem('token')
           throw err;
         }
@@ -49,35 +49,35 @@ module.exports = {
       res.send('No Auth')
     }
   },
-   
+
   authenticateInternal: (req, res) => {
     console.log(req)
-		db.users.findOne({
+    db.users.findOne({
       email: req.body.email,
       employee: true
-		}).then((data) => {
+    }).then((data) => {
 
       let user = {
         email: req.body.email,
         password: req.body.password
       }
 
-			if(data){
-				const passwordCheck = bcrypt.compareSync(req.body.password, data.password);
+      if (data) {
+        const passwordCheck = bcrypt.compareSync(req.body.password, data.password);
         console.log(`password check: ${passwordCheck}`)
-				if(passwordCheck) { 
-					let token = jwt.sign(user, config.secret, {
-						expiresIn: 99999 //in seconds
+        if (passwordCheck) {
+          let token = jwt.sign(user, config.secret, {
+            expiresIn: 99999 //in seconds
           });
           //send token
-          res.json({success: 'true', token: `${token}`})
-				} else {
-					res.send({success: false , message: 'Authenication failed'})
-				}
-			}
-		})
+          res.json({ success: 'true', token: `${token}` })
+        } else {
+          res.send({ success: false, message: 'Authenication failed' })
+        }
+      }
+    })
   },
-	createUser: (req, res) => {
+  createUser: (req, res) => {
     req.checkBody('username', 'Username cannot be empty.').notEmpty();
     req.checkBody('email', 'Email field must not be empty.').notEmpty();
     req.checkBody('email', 'Email field must be and email.').isEmail();
@@ -101,7 +101,7 @@ module.exports = {
         password: hash,
         theme: 1,
         img: 'https://github.com/robaboyd/VGC/blob/master/client/src/assets/defaultProfile.png?raw=true',
-
+        employee: false
       })
         .then((created) => {
 
@@ -112,10 +112,10 @@ module.exports = {
           console.log(user)
           //get a token for the new user
           let token = jwt.sign(user, config.secret, {
-						expiresIn: 99999 //in seconds
+            expiresIn: 99999 //in seconds
           });
           //send token
-          res.json({success: 'true', token: `${token}`})
+          res.json({ success: 'true', token: `${token}` })
         })
         .catch((err) => {
           // create user errors

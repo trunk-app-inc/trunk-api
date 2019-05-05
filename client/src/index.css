@@ -16,7 +16,8 @@ code {
 
 .wrapper {
   background-color: #ffffff;
-  margin-left: 40vw;
+  margin-left: 20vw;
+  margin-right: 20vw;
   height: 100vh;
   overflow: auto;
 }
